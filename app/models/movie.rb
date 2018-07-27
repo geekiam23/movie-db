@@ -7,12 +7,12 @@ class Movie < ApplicationRecord
 
   settings index: { number_of_shards: 1 } do
     mappings dynamic: 'false' do
-      indexes :title, :type => 'text', :analyzer => 'snowball', analyzer: 'english', index_options: 'offsets'
-      indexes :duration, analyzer: 'english'
-      indexes :director, analyzer: 'english'
-      indexes :rating, analyzer: 'english'
-      indexes :description, analyzer: 'english'
-      indexes :poster_file_name, analyzer: 'english'
+      indexes :title, analyzer: 'english', index_options: 'offsets'
+      indexes :duration, analyzer: 'english', index_options: 'offsets'
+      indexes :director, analyzer: 'english', index_options: 'offsets'
+      indexes :rating, analyzer: 'english', index_options: 'offsets'
+      indexes :description, analyzer: 'english', index_options: 'offsets'
+      indexes :poster_file_name, analyzer: 'english', index_options: 'offsets'
     end
   end
 
@@ -22,7 +22,7 @@ class Movie < ApplicationRecord
         query: {
           multi_match: {
             query: query,
-            fields: ['title^10', 'text']
+            fields: ['title^10', 'duration', 'director', 'rating', 'description', 'poster_file_name']
           }
         },
         highlight: {
