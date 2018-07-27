@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   		get 'search'
   	end
   end
+
+  scope '/api' do
+    resources :movies
+  end
   
   resource :search, only: [:show]
 

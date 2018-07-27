@@ -1,5 +1,7 @@
 {
   "name": "movie-db",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "postinstall": "^0.4.1"
+  }
 }

@@ -5,6 +5,7 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     @movies = Movie.all.sort_by &:rating
+    render json: @movies.to_json
   end
 
   # GET /movies/1
