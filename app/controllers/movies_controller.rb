@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     @movies = Movie.all.sort_by &:rating
-    # render json: @movies.to_json
+    render json: @movies.to_json
   end
 
   # GET /movies/1
@@ -21,11 +21,7 @@ class MoviesController < ApplicationController
   # GET /movies/1/edit
   def edit
   end
-
-  # def search
-  #   @movies = Elasticsearch::Model.search(params[:q])
-  # end
-
+  
   def search
     @movies = if params[:term].present?
       Movie.search(params[:term])
