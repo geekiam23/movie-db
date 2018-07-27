@@ -1,0 +1,21 @@
+<nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+  <%= link_to "Movie Reviews", root_path, class: "navbar-brand" %>
+  <ul class="nav navbar-nav">	
+
+    
+	  <%= link_to new_movie_path, class: "nav-item" do %>
+		<h3>New Movie</h3>
+	  <% end %>	  
+    </li>	
+	
+    
+	  <%= link_to about_path, class: 'nav-item' do %>
+		<h3>About</h3>
+	  <% end %>
+    </li>
+  </ul>
+  <form class="form-inline pull-xs-right">
+    <input class="form-control" type="text" placeholder="Search">
+    <button class="btn btn-success-outline" type="submit">Search</button>
+  </form>
+</nav>
