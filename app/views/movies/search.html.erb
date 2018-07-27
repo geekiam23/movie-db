@@ -1,0 +1,15 @@
+<h1>Search Results</h1>
+
+<ul>
+  <% @movies.each do |movie| %>
+    <li>
+      <h3>
+        <%= link_to movie.title, controller: "movies", action: "show", id: movie.id %>
+        <%= movie.director %>
+        <%= movie.duration %>
+        <%= movie.description %>
+        <%= movie.rating %>
+      </h3>
+    </li>
+  <% end %>
+</ul>

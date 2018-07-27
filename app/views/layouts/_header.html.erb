@@ -4,19 +4,15 @@
 
     
 	  <%= link_to new_movie_path, class: "nav-item" do %>
-		<h3>New Movie</h3>
+		<p>New Movie</p>
 	  <% end %>	  
     </li>	
 	
     
 	  <%= link_to about_path, class: 'nav-item' do %>
-		<h3>About</h3>
+		<p>About</p>
 	  <% end %>
     </li>
   </ul>
-  <%= render 'search/search' %>
-  <form class="form-inline pull-xs-right">
-    <input class="form-control" type="text" placeholder="Search">
-    <button class="btn btn-success-outline" type="submit">Search</button>
-  </form>
+  <%= render "layouts/search" %>
 </nav>
