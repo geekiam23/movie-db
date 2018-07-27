@@ -21,6 +21,10 @@ class MoviesController < ApplicationController
   def edit
   end
 
+  def search
+    @movies = Elasticsearch::Model.search(params[:q])
+  end
+
   # POST /movies
   # POST /movies.json
   def create
