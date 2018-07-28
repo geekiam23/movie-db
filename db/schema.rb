@@ -17,10 +17,16 @@ ActiveRecord::Schema.define(version: 2018_07_26_195347) do
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.string "duration"
-    t.string "director"
-    t.string "rating"
-    t.text "description"
+    t.string "tag_line"
+    t.string "status"
+    t.integer "runtime"
+    t.integer "revenue"
+    t.string "release_date"
+    t.string "poster_path"
+    t.integer "popularity"
+    t.string "overview"
+    t.integer "budget"
+    t.boolean "adult"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "poster_file_name"

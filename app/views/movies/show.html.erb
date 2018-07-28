@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= image_tag @movie.poster.url(:medium) %>
+<%# <%= image_tag @movie.poster_path %> %>
 
 <p>
   <strong>Title:</strong>
@@ -9,22 +9,22 @@
 
 <p>
   <strong>Duration:</strong>
-  <%= @movie.duration %>
+  <%= @movie.runtime %>
 </p>
 
 <p>
   <strong>Director:</strong>
-  <%= @movie.director %>
+  <%= @movie.tag_line %>
 </p>
 
 <p>
   <strong>Rating:</strong>
-  <%= @movie.rating %>
+  <%= @movie.popularity %>
 </p>
 
 <p>
   <strong>Description:</strong>
-  <%= @movie.description %>
+  <%= @movie.overview %>
 </p>
 
 <div class="form-group row">

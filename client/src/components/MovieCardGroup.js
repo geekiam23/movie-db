@@ -38,11 +38,13 @@ class MovieCardGroup extends React.Component{
       return  <MovieCard
                 key={movie.id}
                 title={movie.title}
-                duration={movie.duration}
-                director={movie.director}
-                rating={movie.rating}
-                description={movie.description}
-                image_file_name={movie.poster_file_name}
+                popularity={movie.popularity}
+                release_date={movie.release_date}
+                vote_average={movie.vote_average}
+                overview={movie.overview}
+                vote_count={movie.vote_count}
+                adult={movie.adult}
+                photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + movie.poster_path}
                 created_at={movie.created_at}
               />
     });
