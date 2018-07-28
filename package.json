@@ -2,6 +2,11 @@
   "name": "movie-db",
   "private": true,
   "dependencies": {
-    "postinstall": "^0.4.1"
+    "@material-ui/core": "^1.4.1",
+    "material-ui": "^0.20.1",
+    "material-ui-next": "^1.0.0-beta.47",
+    "postinstall": "^0.4.1",
+    "react-router-dom": "^4.3.1",
+    "react-swipeable-views": "^0.12.15"
   }
 }
