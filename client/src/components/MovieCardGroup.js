@@ -1,5 +1,6 @@
 import React from 'react';
-import MovieCard from './MovieCard'
+import MovieCard from './MovieCard';
+import Input from '@material-ui/core/Input';
 import './MovieCardGroup.css'
 
 class MovieCardGroup extends React.Component{
@@ -7,6 +8,7 @@ class MovieCardGroup extends React.Component{
     super(props);
     this.state = {
       movies: [],
+      search: ''
     }
     this.getMovies = this.getMovies.bind(this)
   }
@@ -32,25 +34,48 @@ class MovieCardGroup extends React.Component{
     })
   }
 
+  updateSearch(event) {
+    this.setState({search: event.target.value.substr(0 ,20)});
+  }
+
   render (){
-    let movies =
-    this.state.movies.map((movie) => {
-      return  <MovieCard
-                key={movie.id}
-                title={movie.title}
-                popularity={movie.popularity}
-                release_date={movie.release_date}
-                vote_average={movie.vote_average}
-                overview={movie.overview}
-                vote_count={movie.vote_count}
-                adult={movie.adult}
-                photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + movie.poster_path}
-                created_at={movie.created_at}
-              />
-    });
+    let filteredMovies = this.state.movies.filter(
+      (movie) => {
+        return movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+      }
+    );
+
     return (
-      <div className="movie-review-card-container mdl-grid">
-        {movies}
+      <div>
+        <div className="movie-review-header mdl-layout__header mdl-layout__header--waterfall" id="top" >
+          <div className="mdl-layout__header-row">
+            <div className="movie-review-header-spacer mdl-layout-spacer"></div>
+              <Input
+                placeholder="Search Here!"
+                value={this.state.search}
+                onChange={this.updateSearch.bind(this)}
+                inputProps={{
+                  'aria-label': 'Description',
+                }}
+              />
+          </div>
+        </div>
+        <div className="movie-review-card-container mdl-grid">
+          {filteredMovies.map((movie) => {
+            return <MovieCard
+              key={movie.id}
+              title={movie.title}
+              popularity={movie.popularity}
+              release_date={movie.release_date}
+              vote_average={movie.vote_average}
+              overview={movie.overview}
+              vote_count={movie.vote_count}
+              adult={movie.adult}
+              photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + movie.poster_path}
+              created_at={movie.created_at}
+            />
+          })}
+        </div>
       </div>
     );
   };
