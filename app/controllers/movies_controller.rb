@@ -12,11 +12,6 @@ class MoviesController < ApplicationController
     render json: @movie
   end
 
-  def search
-    @movies = movie_service.find(params[:q])
-    render json: @movies
-  end
-
   private
     
   def movie_detail
