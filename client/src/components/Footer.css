@@ -1,29 +1,3 @@
 .movie-review-footer {
   background-color: #fafafa;
-  position: relative;
-}
-
-.movie-review-footer a:hover {
-  color: #8bc34a;
-}
-
-.movie-review-footer .mdl-mega-footer--top-section::after {
-  border-bottom: none;
-}
-
-.movie-review-footer .mdl-mega-footer--middle-section::after {
-  border-bottom: none;
-}
-
-.movie-review-footer .mdl-mega-footer--bottom-section {
-  position: relative;
-}
-
-.movie-review-footer .mdl-mega-footer--bottom-section a {
-  margin-right: 2em;
-}
-
-.movie-review-footer .mdl-mega-footer--right-section a .material-icons {
-  position: relative;
-  top: 6px;
 }
