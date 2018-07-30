@@ -1,3 +1,11 @@
 .movie-card__container{
   margin: 40px auto;
 }
+
+.movie-review-card__container-image{
+  width: 100%;
+}
+
+.movie-review-card__container{
+  margin: 0 auto;
+}
