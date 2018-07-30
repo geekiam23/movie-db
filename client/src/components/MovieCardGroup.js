@@ -27,7 +27,7 @@ class MovieCardGroup extends React.Component{
   }
 
   getMovies () {
-    this.fetch('api/movies')
+    this.fetch('api/movies/')
     .then(movies => {
       this.setState({movies})
       console.log(movies);
@@ -47,23 +47,24 @@ class MovieCardGroup extends React.Component{
 
     return (
       <div>
-        <div className="movie-review-header mdl-layout__header mdl-layout__header--waterfall" id="top" >
+        <div id="top" >
           <div className="mdl-layout__header-row">
-            <div className="movie-review-header-spacer mdl-layout-spacer"></div>
-              <Input
-                placeholder="Search Here!"
-                value={this.state.search}
-                onChange={this.updateSearch.bind(this)}
-                inputProps={{
-                  'aria-label': 'Description',
-                }}
-              />
+            <Input
+              className="movie-review__search-bar"
+              placeholder="Search Here!"
+              value={this.state.search}
+              onChange={this.updateSearch.bind(this)}
+              inputProps={{
+                'aria-label': 'Description',
+              }}
+            />
           </div>
         </div>
-        <div className="movie-review-card-container mdl-grid">
+        <div className="mdl-grid">
           {filteredMovies.map((movie) => {
             return <MovieCard
               key={movie.id}
+              id={movie.id}
               title={movie.title}
               popularity={movie.popularity}
               release_date={movie.release_date}
