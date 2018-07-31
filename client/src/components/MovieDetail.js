@@ -1,5 +1,5 @@
 import React from 'react';
-import './MovieCardGroup.css'
+import './MovieDetail.css'
 
 class MovieDetail extends React.Component{
   constructor(props){
@@ -28,11 +28,20 @@ class MovieDetail extends React.Component{
     this.fetch(`${this.props.location.pathname}`)
     .then(activeMovie => {
       this.setState({activeMovie: activeMovie.table})
-      console.log(this.state.activeMovie);
+      console.log(this.state.activeMovie.casts);
     })
   }
 
   render (){
+    const movieCasts = this.state.activeMovie ? (
+      <div>
+        Casts:
+        <ul className="casts">
+          {this.state.activeMovie.casts.map((cast, index) => <li key={index}>{cast}</li>)}
+        </ul>
+      </div>
+    ) : "";
+
     const movieContainer = this.state.activeMovie ?
     <div>
       <img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + this.state.activeMovie.poster_path} />
@@ -53,6 +62,7 @@ class MovieDetail extends React.Component{
     return (
       <div>
         {movieContainer}
+        {movieCasts}
       </div>
     );
   };
