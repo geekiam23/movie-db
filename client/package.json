@@ -25,6 +25,6 @@
     "sinon": "^6.1.4"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "src/setupTest.js"
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
   }
 }
