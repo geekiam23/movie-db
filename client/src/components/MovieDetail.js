@@ -8,14 +8,13 @@ class MovieDetail extends React.Component{
       activeMovie: null,
       search: ''
     }
-    this.getMoviesDetail = this.getMoviesDetail.bind(this)
   }
 
-  componentDidMount () {    
+  componentDidMount = () => {
     this.getMoviesDetail()
   }
 
-  fetch(endpoint) {
+  fetch = (endpoint) => {
     return new Promise((resolve, reject) => {
       window.fetch(endpoint)
       .then(response => response.json())
@@ -24,7 +23,7 @@ class MovieDetail extends React.Component{
     })
   }
 
-  getMoviesDetail () {    
+  getMoviesDetail = () => {    
     this.fetch(`${this.props.location.pathname}`)
     .then(activeMovie => {
       this.setState({activeMovie: activeMovie.table})

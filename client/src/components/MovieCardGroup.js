@@ -1,6 +1,6 @@
 import React from 'react';
 import MovieCard from './MovieCard';
-import Input from '@material-ui/core/Input';
+// import input from '@material-ui/core/Input';
 import './MovieCardGroup.css'
 
 class MovieCardGroup extends React.Component{
@@ -10,14 +10,13 @@ class MovieCardGroup extends React.Component{
       movies: [],
       search: ''
     }
-    this.getMovies = this.getMovies.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount = () => {
     this.getMovies()
   }
 
-  fetch(endpoint) {
+  fetch = (endpoint) => {
     return new Promise((resolve, reject) => {
       window.fetch(endpoint)
       .then(response => response.json())
@@ -26,7 +25,7 @@ class MovieCardGroup extends React.Component{
     })
   }
 
-  getMovies () {
+  getMovies = () => {
     this.fetch('api/movies/')
     .then(movies => {
       this.setState({movies})
@@ -34,7 +33,7 @@ class MovieCardGroup extends React.Component{
     })
   }
 
-  updateSearch(event) {
+  updateSearch = (event) => {
     this.setState({search: event.target.value.substr(0 ,20)});
   }
 
@@ -49,7 +48,7 @@ class MovieCardGroup extends React.Component{
       <div>
         <div id="top" >
           <div className="mdl-layout__header-row">
-            <Input
+            <input
               className="movie-review__search-bar"
               placeholder="Search Here!"
               value={this.state.search}
