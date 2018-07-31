@@ -1,5 +1,5 @@
 import React from 'react';
-import './MovieDetail.css'
+import '../styles/MovieDetail.css'
 
 class MovieDetail extends React.Component{
   constructor(props){

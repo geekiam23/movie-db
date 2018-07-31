@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './MovieCard.css';
+import '../styles/MovieCard.css';
 
 const MovieCard = (props) => (
   <div className="mdl-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--7-col-phone mdl-card mdl-shadow--3dp movie-card__container">

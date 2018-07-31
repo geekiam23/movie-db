@@ -1,7 +1,6 @@
 import React from 'react';
 import MovieCard from './MovieCard';
-// import input from '@material-ui/core/Input';
-import './MovieCardGroup.css'
+// import '../styles/MovieCardGroup.css'
 
 class MovieCardGroup extends React.Component{
   constructor(props){

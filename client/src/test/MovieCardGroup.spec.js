@@ -2,7 +2,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import MovieCardGroup from './MovieCardGroup';
+import MovieCardGroup from '../components/MovieCardGroup';
 
 describe('MovieCardGroup', function() {
   let movieCardGroup;
