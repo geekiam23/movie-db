@@ -1,6 +1,6 @@
 import React from 'react';
 import MovieCard from './MovieCard';
-// import '../styles/MovieCardGroup.css'
+import '../styles/MovieCardGroup.css'
 
 class MovieCardGroup extends React.Component{
   constructor(props){
@@ -29,6 +29,8 @@ class MovieCardGroup extends React.Component{
     .then(movies => {
       this.setState({movies})
       console.log(movies);
+    }).catch(err => {
+      console.log(err);
     })
   }
 
@@ -52,9 +54,6 @@ class MovieCardGroup extends React.Component{
               placeholder="Search Here!"
               value={this.state.search}
               onChange={this.updateSearch.bind(this)}
-              inputProps={{
-                'aria-label': 'Description',
-              }}
             />
           </div>
         </div>
