@@ -34,45 +34,27 @@ class MovieCardGroup extends React.Component{
     })
   }
 
-  updateSearch = (event) => {
-    this.setState({search: event.target.value.substr(0 ,20)});
-  }
-
   render (){
-    let filteredMovies = this.state.movies.filter(
-      (movie) => {
-        return movie.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
-      }
-    );
+    let movies = this.state.movies.map((movie) => {
+      return <MovieCard
+        key={movie.id}
+        id={movie.id}
+        title={movie.title}
+        popularity={movie.popularity}
+        release_date={movie.release_date}
+        vote_average={movie.vote_average}
+        overview={movie.overview}
+        vote_count={movie.vote_count}
+        adult={movie.adult}
+        photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + movie.poster_path}
+        created_at={movie.created_at}
+      />
+    });
 
     return (
       <div>
-        <div id="top" >
-          <div className="mdl-layout__header-row">
-            <input
-              className="movie-review__search-bar"
-              placeholder="Search Here!"
-              value={this.state.search}
-              onChange={this.updateSearch.bind(this)}
-            />
-          </div>
-        </div>
         <div className="mdl-grid">
-          {filteredMovies.map((movie) => {
-            return <MovieCard
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              popularity={movie.popularity}
-              release_date={movie.release_date}
-              vote_average={movie.vote_average}
-              overview={movie.overview}
-              vote_count={movie.vote_count}
-              adult={movie.adult}
-              photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + movie.poster_path}
-              created_at={movie.created_at}
-            />
-          })}
+          {movies}
         </div>
       </div>
     );
