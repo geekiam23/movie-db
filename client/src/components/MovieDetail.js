@@ -44,7 +44,7 @@ class MovieDetail extends React.Component{
       )
     ) : "";
 
-    const movieReviews = this.state.activeMovie.results ? (
+    const movieReviews = this.state.activeMovie ? (
       this.state.activeMovie.results.map((review, index) => 
           <Card>
             <Card.Content>
