@@ -23,11 +23,11 @@ class MovieDetail extends React.Component{
     })
   }
 
-  getMoviesDetail = () => {    
-    this.fetch(`${this.props.location.pathname}`)
+  getMoviesDetail = () => {        
+    this.fetch(`/api${this.props.location.pathname}`)
     .then(activeMovie => {
-      this.setState({activeMovie: activeMovie.table})
-      console.log(this.state.activeMovie.casts);
+      this.setState({activeMovie})
+      console.log(this.state.activeMovie);
     })
   }
 
@@ -36,26 +36,33 @@ class MovieDetail extends React.Component{
       <div>
         Casts:
         <ul className="casts">
-          {this.state.activeMovie.casts.map((cast, index) => <li key={index}>{cast}</li>)}
+          {this.state.activeMovie.cast.map((cast, index) => 
+            <li key={index}>
+              {<img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} />}
+              {cast.name}: {cast.character}
+            </li>)}
         </ul>
       </div>
     ) : "";
 
     const movieContainer = this.state.activeMovie ?
     <div>
-      <img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + this.state.activeMovie.poster_path} />
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.title}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.tagline}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.synopsis}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.status}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.runtime}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.revenue}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.adult}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.budget}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.genres}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.overview}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.rating}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.release_date}</div>
+      <img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + this.state.activeMovie.details.poster_path} />
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.title}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.tagline}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.synopsis}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.genres[0].name}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.status}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.runtime}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.revenue}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.adult}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.budget}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.overview}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.rating}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.release_date}</div>
+      <img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + this.state.activeMovie.details.belongs_to_collection.poster_path} />
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeMovie.details.belongs_to_collection.name}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead"><a href={this.state.activeMovie.details.homepage}>Homepage</a></div>
     </div> : "";
 
     return (

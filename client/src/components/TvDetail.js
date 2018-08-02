@@ -11,7 +11,7 @@ class TvDetail extends React.Component{
   }
 
   componentDidMount = () => {
-    this.getMoviesDetail()
+    this.getTvDetail()
   }
 
   fetch = (endpoint) => {
@@ -23,11 +23,11 @@ class TvDetail extends React.Component{
     })
   }
 
-  getMoviesDetail = () => {    
-    this.fetch(`${this.props.location.pathname}`)
+  getTvDetail = () => {
+    this.fetch(`/api${this.props.location.pathname}`)
     .then(activeTv => {
-      this.setState({activeTv: activeTv.table})
-      console.log(this.state.activeTv.casts);
+      this.setState({activeTv})
+      console.log(this.state.activeTv);
     })
   }
 
@@ -36,26 +36,29 @@ class TvDetail extends React.Component{
       <div>
         Casts:
         <ul className="casts">
-          {this.state.activeTv.casts.map((cast, index) => <li key={index}>{cast}</li>)}
+          {this.state.activeTv.cast.map((cast, index) => 
+            <li key={index}>
+              {<img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} />}
+              {cast.name}: {cast.character}
+            </li>)} 
         </ul>
       </div>
     ) : "";
 
     const tvContainer = this.state.activeTv ?
     <div>
-      <img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + this.state.activeTv.poster_path} />
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.title}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.tagline}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.synopsis}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.status}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.runtime}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.revenue}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.adult}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.budget}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.genres}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.overview}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.rating}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.release_date}</div>
+      <img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + this.state.activeTv.details.poster_path} />
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.name}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.synopsis}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.genres[0].name}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.overview}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.status}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.first_air_date}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead"><a href={this.state.activeTv.details.homepage}>Homepage</a></div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.in_production}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.number_of_episodes}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.number_of_seasons}</div>
+      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.type}</div>
     </div> : "";
 
     return (

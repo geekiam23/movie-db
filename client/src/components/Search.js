@@ -26,7 +26,7 @@ class Search extends React.Component {
     }
   
     getMovies = () => {
-      this.fetch('api/search?q=' + this.state.term)
+      this.fetch('/search?q=' + this.state.term)
       .then(autoCompleteResults => {
         this.setState({ autoCompleteResults: autoCompleteResults})
         console.log(autoCompleteResults);
@@ -39,23 +39,36 @@ class Search extends React.Component {
       this.setState({
         term: e.target.value
       }, () => {
-        this.fetch('api/search?q=' + this.state.term)
-          .then(response => this.setState({ autoCompleteResults: response }))
+        this.fetch('/search?q=' + this.state.term)
+          .then(response => this.setState({ autoCompleteResults: response.results }))
       });
     }
 
   render(){
-    let autoCompleteList = this.state.autoCompleteResults.map((response, index) => {
-      return <div key={index}>
-        <Link to={`/movies/${response.id}`} >
-        <img className="search__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + response.poster_path} />
-          <div className="mdl-typography--font-light mdl-typography--subhead">{response.title}</div>
-        </Link>
-      </div>
-    });
+    let autoCompleteList = 
+      this.state.autoCompleteResults.map((response, index) => {
+        console.log(response);
+        if (!response.name){
+          return <div key={index}>
+          <p>movie</p>
+            <Link to={`/movies/${response.id}`} >
+            <img className="search__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + response.poster_path} />
+              <div className="mdl-typography--font-light mdl-typography--subhead">{response.title}</div>
+            </Link>
+          </div>
+        } else{
+          return <div key={index}>
+          <p>tv</p>
+            <Link to={`/tv/${response.id}`} >
+            <img className="search__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + response.poster_path} />
+              <div className="mdl-typography--font-light mdl-typography--subhead">{response.name}</div>
+            </Link>
+          </div>
+        }
+      });
 
     return (
-      <div>
+      <div className="search">
         <input ref={ (input) => { this.searchBar = input } } value={ this.state.term } onChange={ this.getAutoCompleteResults.bind(this) } type='text' placeholder='Search...' />
         { autoCompleteList }
       </div>

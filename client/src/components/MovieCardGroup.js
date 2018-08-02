@@ -36,20 +36,20 @@ class MovieCardGroup extends React.Component{
 
   render (){
     let movies = this.state.movies.map((movie) => {
-      return <MovieCard
-        key={movie.id}
-        id={movie.id}
-        title={movie.title}
-        popularity={movie.popularity}
-        release_date={movie.release_date}
-        vote_average={movie.vote_average}
-        overview={movie.overview}
-        vote_count={movie.vote_count}
-        adult={movie.adult}
-        photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + movie.poster_path}
-        created_at={movie.created_at}
-      />
-    });
+        return <MovieCard
+          key={movie.id}
+          id={movie.id}
+          title={movie.title}
+          popularity={movie.popularity}
+          release_date={movie.release_date}
+          vote_average={movie.vote_average}
+          overview={movie.overview}
+          vote_count={movie.vote_count}
+          adult={movie.adult}
+          photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + movie.poster_path}
+          created_at={movie.created_at}
+        />
+      });
 
     return (
       <div>

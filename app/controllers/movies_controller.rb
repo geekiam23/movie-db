@@ -1,28 +1,31 @@
 class MoviesController < ApplicationController
-  before_action :image_path, only: %i(index search)
 
   def index
-    @movies = movie_service.popular
-    render json: @movies.to_json
-  end
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/popular?api_key=#{ENV['TMDB_API_KEY']}&language=en-US&page=1")
+    response = HTTParty.get(url)
+
+    @movies = JSON.parse(response.body, symbolize_names: true) 
+    render json: @movies[:results].to_json
+  end 
 
   def show
-    @movie = MoviePresenter.new(movie_detail).data
-    @movie[:image_path] = "#{image_path}/w370_and_h556_bestv2#{@movie.poster_path}"
-    render json: @movie
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    response = HTTParty.get(url)
+
+    @movie = {:details => (JSON.parse(response.body, symbolize_names: true))}
+
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}/credits?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    response = HTTParty.get(url)
+
+    @cast = JSON.parse(response.body, symbolize_names: true) 
+
+    @all = @movie.merge(@cast)
+    render json: @all.to_json
   end
 
-  private
-    
-  def movie_detail
-    movie_service.movie_detail(params['id'])
-  end
 
-  def image_path
-    @image_path ||= movie_service.configuration.base_url
-  end
-
-  def movie_service
-    @movie_service ||= MovieDbService.new
+  def search
+    @movies = movie_service.find(params[:q])
+    render json: @movies
   end
 end

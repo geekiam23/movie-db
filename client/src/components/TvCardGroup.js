@@ -39,15 +39,13 @@ class TvCardGroup extends React.Component{
       return <TvCard
         key={tv.id}
         id={tv.id}
-        title={tv.title}
+        name={tv.name}
         popularity={tv.popularity}
-        release_date={tv.release_date}
+        first_air_date={tv.first_air_date}
         vote_average={tv.vote_average}
         overview={tv.overview}
         vote_count={tv.vote_count}
-        adult={tv.adult}
         photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + tv.poster_path}
-        created_at={tv.created_at}
       />
     });
 
