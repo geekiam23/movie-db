@@ -1,9 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import MovieCardGroup from '../components/MovieCardGroup';
 import movieExample from './movieExample';
+import fakeCall from './call';
+import gettingMovies from './call';
+
 
 describe('MovieCardGroup', function() {
   let movieCardGroup;
@@ -13,32 +16,55 @@ describe('MovieCardGroup', function() {
   let timeoutStub;
   let fetchStub;
 
+  before(function() {
+    sandbox = sinon.sandbox.create();
+  });
+
   beforeEach(function() {
-    this.sandbox = sinon.createSandbox();
-    movieCardGroup = shallow(<MovieCardGroup />, {disableLifeCycleMethods: true});
-    fetchStub = this.sandbox.stub(movieCardGroup.instance(), 'fetch').resolves();
+    // sandbox.stub(gettingMovies, 'getMovies').resolves(movieExample);
+    movieCardGroup = mount(<MovieCardGroup />, {disableLifeCycleMethods: true});
+    // fetchStub = this.sandbox.stub(movieCardGroup.instance(), 'fetch').resolves();
     // this.sandbox.stub(movieCardGroup.instance(), 'getMovies').resolves(movieExample);
-    promise = movieCardGroup.instance().getMovies();
+    // promise = movieCardGroup.instance().getMovies();
   });
 
   afterEach(function() {
-    this.sandbox.restore();
+    sandbox.restore();
   });
 
   it('should render', function() {
     expect(movieCardGroup).to.not.be.empty;
   });
 
-  describe('constructor', function() {
-    it('should properly set my starting state', function() {
-      return movieCardGroup.instance().getMovies().then(() => {
-        expect(movieCardGroup.state().movies).length.to.equal(110);
-        // expect(fetchStub.calledOnce).to.be.true;
-      });
+  describe('componentDidMount', function() {
+    let timeoutStub;
+
+    it('should call autoRefreshData to trigger the polling', function() {
+      sandbox.stub(movieCardGroup.instance(), 'getMovies').resolves({});
+      timeoutStub = sandbox.stub(movieCardGroup.instance(), 'fetch');
+console.log(movieCardGroup.instance().wrappedMethod);
+// console.log(timeoutStub);
+
+      // return movieCardGroup.instance().componentDidMount()
+        // .then(() => {
+          expect(timeoutStub).to.be.calledOnce;
+        // });
     });
   });
 
-  describe('componentDidMount', function() {
+  // describe('constructor', function() {
+  //   it('should properly set my starting state', function() {
+      
+  //     return promise.then(() => {
+  //       console.log(movieCardGroup.instance().state);
+
+  //       expect(movieCardGroup.state('movies')).length.to.equal(2);
+  //       // expect(fetchStub.calledOnce).to.be.true;
+  //     });
+  //   });
+  // });
+
+  describe.skip('componentDidMount', function() {
     it('should call fetch to trigger the polling', function() {
       timeoutStub = this.sandbox.stub(movieCardGroup.instance(), 'getMovies').resolves();
       movieCardGroup.instance().componentDidMount();

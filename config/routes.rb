@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     resources :tv
     resources :movies
   end
+
+  resources :tv
+  resources :movies
   
   get 'movies/show'
   get 'tv/show'
