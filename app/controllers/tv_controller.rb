@@ -19,7 +19,14 @@ class TvController < ApplicationController
 
     @cast = JSON.parse(response.body, symbolize_names: true) 
 
-    @all = @tv_show.merge(@cast)
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/tv/#{params[:id]}/reviews?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    response = HTTParty.get(url)
+
+    @reviews = JSON.parse(response.body, symbolize_names: true) 
+
+    @sub_tv_shows = @tv_show.merge(@cast)
+
+    @all = @sub_tv_shows.merge(@reviews)
     render json: @all.to_json
   end
 end

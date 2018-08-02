@@ -44,6 +44,17 @@ class MovieDetail extends React.Component{
       )
     ) : "";
 
+    const movieReviews = this.state.activeMovie.results ? (
+      this.state.activeMovie.results.map((review, index) => 
+          <Card>
+            <Card.Content>
+              <Card.Header>{review.author}</Card.Header>
+              <Card.Header>{review.content}</Card.Header>
+            </Card.Content>
+          </Card>
+        ) 
+    ) : "";
+
     const movieContainer = this.state.activeMovie ?
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container verticalAlign='middle'>
@@ -98,6 +109,13 @@ class MovieDetail extends React.Component{
         </Header>
         <Card.Group centered>
           {movieCasts}
+        </Card.Group>
+        <hr/>
+        <Header textAlign='center' as='h3' style={{ fontSize: '2em' }}>
+          Reviews:
+        </Header>
+        <Card.Group centered>
+          {movieReviews}
         </Card.Group>
       </div>
     );

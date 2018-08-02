@@ -28,7 +28,7 @@ class TvDetail extends React.Component{
     this.fetch(`/api${this.props.location.pathname}`)
     .then(activeTv => {
       this.setState({activeTv})
-      console.log(this.state.activeTv);
+      console.log(this.state.activeTv.results);
     })
   }
 
@@ -39,6 +39,17 @@ class TvDetail extends React.Component{
             <Image src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} alt="image" />
             <Card.Content>
               <Card.Header>{cast.name} as {cast.character}</Card.Header>
+            </Card.Content>
+          </Card>
+        ) 
+    ) : "";
+
+    const tvReviews = this.state.activeTv ? (
+      this.state.activeTv.results.map((review, index) => 
+          <Card>
+            <Card.Content>
+              <Card.Header>{review.author}</Card.Header>
+              <Card.Header>{review.content}</Card.Header>
             </Card.Content>
           </Card>
         ) 
@@ -113,6 +124,13 @@ class TvDetail extends React.Component{
         </Header>
         <Card.Group centered>
           {tvCasts}
+        </Card.Group>
+        <hr/>
+        <Header textAlign='center' as='h3' style={{ fontSize: '2em' }}>
+          Reviews:
+        </Header>
+        <Card.Group centered>
+          {tvReviews}
         </Card.Group>
       </div>
     );

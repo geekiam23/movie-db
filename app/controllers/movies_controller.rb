@@ -18,9 +18,24 @@ class MoviesController < ApplicationController
     response = HTTParty.get(url)
 
     @cast = JSON.parse(response.body, symbolize_names: true) 
+    
+    @sub_movies = @movie.merge(@cast)
 
-    @all = @movie.merge(@cast)
-    render json: @all.to_json
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}/reviews?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    response = HTTParty.get(url)
+
+    @reviews = JSON.parse(response.body, symbolize_names: true) 
+    
+    @sub_movies2 = @sub_movies.merge(@reviews)
+
+    # url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}/similar?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    # response = HTTParty.get(url)
+
+    # @similar = JSON.parse(response.body, symbolize_names: true) 
+
+    # @all = @sub_movies2.merge(@similar)
+
+    render json: @sub_movies2.to_json
   end
 
 
