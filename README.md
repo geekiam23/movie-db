@@ -2,7 +2,7 @@
 
 ## About
 
-The MovieDatabase is a fullstack application built from the api  *The MovieDB API*. Users can view popular tv shows and movies. They can also search for any movie, tv show, or actor/actress. Each item is clickable except for actors/actress. You can find the app [here](https://immense-thicket-85542.herokuapp.com/). 
+The MovieDatabase is a fullstack application built from the api  *The MovieDB API*. Users can view popular tv shows and movies. They can also search for any movie, tv show, or actor/actress. Each item is clickable except for actors/actress. Also, you can find reviews for TV shows and movies. You can find the app [here](https://immense-thicket-85542.herokuapp.com/). 
 
 - Bonus
   - Include movies.
@@ -40,7 +40,6 @@ If I were to do this poject again, I would start take a day to create a plan and
 - I really did enjoy the process. It was fun to think through the different approaches and issues.
 
 ## Things that I will add in the near future.
-- Attach reviews to each show.
 - When a user searches an actor or actress, display their biography first.
 - Handle user entry errors.
 - Create a similar items feature. 
