@@ -1,6 +1,6 @@
 import React from 'react';
 import TvCard from './TvCard';
-import '../styles/MovieCardGroup.css'
+import { Card } from 'semantic-ui-react'
 
 class TvCardGroup extends React.Component{
   constructor(props){
@@ -50,11 +50,9 @@ class TvCardGroup extends React.Component{
     });
 
     return (
-      <div>
-        <div className="mdl-grid">
-          {tv}
-        </div>
-      </div>
+      <Card.Group centered >
+        {tv}
+      </Card.Group >
     );
   };
 }

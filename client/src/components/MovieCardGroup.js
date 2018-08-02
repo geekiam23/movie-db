@@ -1,6 +1,6 @@
 import React from 'react';
 import MovieCard from './MovieCard';
-import '../styles/MovieCardGroup.css'
+import { Card } from 'semantic-ui-react'
 
 class MovieCardGroup extends React.Component{
   constructor(props){
@@ -52,11 +52,9 @@ class MovieCardGroup extends React.Component{
       });
 
     return (
-      <div>
-        <div className="mdl-grid">
-          {movies}
-        </div>
-      </div>
+      <Card.Group centered >
+        {movies}
+      </Card.Group >
     );
   };
 }

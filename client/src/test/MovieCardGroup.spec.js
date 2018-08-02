@@ -15,6 +15,8 @@ describe('MovieCardGroup', function() {
   let teesting;
   let timeoutStub;
   let fetchStub;
+  let inst;
+
 
   before(function() {
     sandbox = sinon.sandbox.create();
@@ -42,10 +44,11 @@ describe('MovieCardGroup', function() {
     it('should call autoRefreshData to trigger the polling', function() {
       sandbox.stub(movieCardGroup.instance(), 'getMovies').resolves({});
       timeoutStub = sandbox.stub(movieCardGroup.instance(), 'fetch');
-console.log(movieCardGroup.instance().wrappedMethod);
+console.log(movieCardGroup.instance());
+inst = movieCardGroup.instance()
 // console.log(timeoutStub);
-
-      // return movieCardGroup.instance().componentDidMount()
+      expect(inst).to.be.instanceOf(movieCardGroup);
+      // return 
         // .then(() => {
           expect(timeoutStub).to.be.calledOnce;
         // });

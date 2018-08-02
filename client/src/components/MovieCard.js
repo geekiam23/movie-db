@@ -1,22 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/MovieCard.css';
+import { Card, Image } from 'semantic-ui-react'
+import Rating from './Rating';
 
 const MovieCard = (props) => (
-  <div className="mdl-cell mdl-cell--4-col mdl-cell--7-col-tablet mdl-cell--7-col-phone mdl-card mdl-shadow--3dp movie-card__container">
-    <div className="mdl-card__supporting-text movie-review-card__container">
+  <Card>
+    <Link to={`/movies/${props.id}`} >
+      <Image src={props.photo} />
+    </Link>
+      <Card.Content>
       <Link to={`/movies/${props.id}`} >
-        <img className="movie-review-card__container-image" src={props.photo} alt={'movie-poster'}/>
-        <div className="mdl-typography--font-light mdl-typography--subhead">{props.title}</div>
+        <Card.Header>{props.title}</Card.Header>
       </Link>
-        <div className="mdl-typography--font-light mdl-typography--subhead">{props.popularity}</div>
-        <div className="mdl-typography--font-light mdl-typography--subhead">{props.release_date}</div>
-        <div className="mdl-typography--font-light mdl-typography--subhead">{props.vote_average}</div>
-        <div className="mdl-typography--font-light mdl-typography--subhead">{props.overview}</div>
-        <div className="mdl-typography--font-light mdl-typography--subhead">{props.vote_count}</div>
-        <div className="mdl-typography--font-light mdl-typography--subhead">{props.adult}</div>
-    </div>
-  </div>
+        <Card.Description>{props.overview}</Card.Description>
+      </Card.Content>
+      <Card.Content extra>
+        <Rating max={10} votes={props.vote_average}/>
+        <Card.Description><b>Release Date: </b>{props.release_date}</Card.Description>
+    </Card.Content>
+  </Card>
 )
 
 export default MovieCard;

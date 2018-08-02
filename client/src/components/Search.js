@@ -1,6 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
+import { Input } from 'semantic-ui-react'
+import { Card, Image, Grid } from 'semantic-ui-react'
+
 import '../styles/Search.css';
 
 
@@ -45,42 +47,39 @@ class Search extends React.Component {
     }
 
   render(){
-    let autoCompleteList = 
+    let autoCompleteList = this.state.autoCompleteResults ? 
       this.state.autoCompleteResults.map((response, index) => {
         console.log(response);
         if (!response.name){
-          return <div key={index}>
-          <p>movie</p>
-            <Link to={`/movies/${response.id}`} >
-            <img className="search__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + response.poster_path} />
-              <div className="mdl-typography--font-light mdl-typography--subhead">{response.title}</div>
-            </Link>
-          </div>
+          return <Card>
+                  <Link to={`/movies/${response.id}`} >
+                    <Card.Content>
+                      <Image floated='right' size='mini' src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + response.poster_path} />
+                      <Card.Header>{response.title}</Card.Header>
+                    </Card.Content>
+                  </Link>
+                </Card>
         } else{
-          return <div key={index}>
-          <p>tv</p>
-            <Link to={`/tv/${response.id}`} >
-            <img className="search__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + response.poster_path} />
-              <div className="mdl-typography--font-light mdl-typography--subhead">{response.name}</div>
-            </Link>
-          </div>
+          return <Card>
+                  <Link to={`/tv/${response.id}`} >
+                    <Card.Content>
+                      <Image floated='right' size='mini' src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + response.poster_path} />
+                      <Card.Header>{response.name}</Card.Header>
+                    </Card.Content>
+                  </Link>
+                </Card>
         }
-      });
+      }) : "";
 
     return (
-      <div className="search">
-        <input ref={ (input) => { this.searchBar = input } } value={ this.state.term } onChange={ this.getAutoCompleteResults.bind(this) } type='text' placeholder='Search...' />
-        { autoCompleteList }
-      </div>
+      <Grid style={{zIndex: '10'}}>
+        <Grid.Column>          
+          <Input ref={ (input) => { this.searchBar = input } } value={ this.state.term } onChange={ this.getAutoCompleteResults.bind(this) } type='text' placeholder='Search...' />
+          { autoCompleteList }
+        </Grid.Column>
+      </Grid>
     )
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Search />,
-    document.body.appendChild(document.createElement('div')),
-  )
-});
 
 export default Search;

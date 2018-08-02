@@ -1,5 +1,6 @@
 import React from 'react';
-import '../styles/MovieDetail.css'
+import { Card, Header, Image, Grid, Segment } from 'semantic-ui-react'
+import Rating from './Rating';
 
 class TvDetail extends React.Component{
   constructor(props){
@@ -33,41 +34,90 @@ class TvDetail extends React.Component{
 
   render (){
     const tvCasts = this.state.activeTv ? (
-      <div>
-        Casts:
-        <ul className="casts">
-          {this.state.activeTv.cast.map((cast, index) => 
-            <li key={index}>
-              {<img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} />}
-              {cast.name}: {cast.character}
-            </li>)} 
-        </ul>
-      </div>
+      this.state.activeTv.cast.map((cast, index) => 
+          <Card>
+            <Image src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} alt="image" />
+            <Card.Content>
+              <Card.Header>{cast.name} as {cast.character}</Card.Header>
+            </Card.Content>
+          </Card>
+        ) 
     ) : "";
 
     const tvContainer = this.state.activeTv ?
-    <div>
-      <img className="movie-review-card__container-image" alt={"movie-poster"} src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + this.state.activeTv.details.poster_path} />
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.name}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.synopsis}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.genres[0].name}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.overview}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.status}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.first_air_date}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead"><a href={this.state.activeTv.details.homepage}>Homepage</a></div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.in_production}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.number_of_episodes}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.number_of_seasons}</div>
-      <div className="mdl-typography--font-light mdl-typography--subhead">{this.state.activeTv.details.type}</div>
-    </div> : "";
+    <Segment style={{ padding: '8em 0em' }} vertical>
+      <Grid container verticalAlign='middle'>
+        <Grid.Row>
+          <Grid.Column width={8}>
+            <Header as='h3' style={{ fontSize: '2em' }}>
+              {this.state.activeTv.details.name}
+            </Header>
+            <p style={{ fontSize: '1.33em' }}>
+              {this.state.activeTv.details.overview}
+            </p>
+            <Grid.Row>
+              <Grid.Column>
+                <p style={{ fontSize: '1.33em' }}>
+                  <b>Genres: </b>{this.state.activeTv.details.genres[0].name}
+                </p>
+              </Grid.Column>
+              <Grid.Column>
+                <p style={{ fontSize: '1.33em' }}>
+                  <b>Status: </b>{this.state.activeTv.details.status}
+                </p>
+              </Grid.Column>
+              <Grid.Column>
+                <p style={{ fontSize: '1.33em' }}>
+                  <b>First Air Date: </b>{this.state.activeTv.details.first_air_date}
+                </p>
+              </Grid.Column>
+              <Grid.Column>
+                <p style={{ fontSize: '1.33em' }}>
+                  <b>Homepage: </b><a href={this.state.activeTv.details.homepage}>Homepage</a>
+                </p>
+              </Grid.Column>
+              <Grid.Column>
+                <p style={{ fontSize: '1.33em' }}>
+                  <b># of Episodes: </b>{this.state.activeTv.details.number_of_episodes}
+                </p>
+              </Grid.Column>
+              <Grid.Column>
+                <p style={{ fontSize: '1.33em' }}>
+                  <b># of Seasons: </b>{this.state.activeTv.details.number_of_seasons}
+                </p>
+              </Grid.Column>
+              <Grid.Column>
+                <p style={{ fontSize: '1.33em' }}>
+                  <b>Type: </b>{this.state.activeTv.details.type}
+                </p>
+              </Grid.Column>
+              <Grid.Column>
+                <p style={{ fontSize: '1.33em' }}>
+                  <b>User Score: </b><Rating max={10} votes={this.state.activeTv.details.vote_average} />
+                </p>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid.Column>
+          <Grid.Column floated='right' width={6}>
+            <Image bordered rounded size='large' src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + this.state.activeTv.details.poster_path} />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </Segment> : "";
 
     return (
       <div>
         {tvContainer}
-        {tvCasts}
+        <Header textAlign='center' as='h3' style={{ fontSize: '2em' }}>
+          Casts:
+        </Header>
+        <Card.Group centered>
+          {tvCasts}
+        </Card.Group>
       </div>
     );
   };
 }
 
 export default TvDetail;
+

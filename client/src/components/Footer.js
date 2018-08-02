@@ -1,20 +1,15 @@
 import React from 'react';
-import '../styles/Footer.css';
+import { Container, Grid, Segment } from 'semantic-ui-react'
+
 
 
 const Footer = () => (
-  <div id="movie-review-footer">
-    <footer className="movie-review-footer mdl-mega-footer">
-      <div className="mdl-mega-footer--top-section">
-        <div className="mdl-mega-footer--right-section">
-          <a className="mdl-typography--font-light" href="#top">
-            Back to Top
-            <i className="material-icons">expand_less</i>
-          </a>
-        </div>
-      </div>
-    </footer>
-  </div>
+  <Segment inverted vertical style={{ padding: '5em 0em', marginTop: '100px'  }}>
+    <Container>
+      <Grid divided inverted stackable>
+      </Grid>
+    </Container>
+  </Segment>
 )
 
 export default Footer;
