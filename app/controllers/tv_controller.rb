@@ -12,7 +12,7 @@ class TvController < ApplicationController
     @tv_show = details(params[:id])
 
     @cast = getTvInfo(params[:id], "/credits")
-    @sub_tv_shows = @movie.merge(@cast)
+    @sub_tv_shows = @tv_show.merge(@cast)
 
     @reviews = getTvInfo(params[:id], "/reviews")
     @reviews["reviews"] = @reviews.delete("results")
@@ -30,7 +30,7 @@ class TvController < ApplicationController
     url = Addressable::URI.parse("https://api.themoviedb.org/3/tv/#{id}?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
     response = HTTParty.get(url)
 
-    @movie = {:details => (JSON.parse(response.body, symbolize_names: true))}
+    @tv_show = {:details => (JSON.parse(response.body, symbolize_names: true))}
   end
 
 

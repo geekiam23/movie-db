@@ -6,10 +6,12 @@ Rails.application.routes.draw do
   scope '/api' do
     resources :tv
     resources :movies
+    resources :people
   end
 
   resources :tv
   resources :movies
+  resources :people
   
   get 'movies/show'
   get 'tv/show'
