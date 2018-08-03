@@ -40,8 +40,8 @@ If I were to do this poject again, I would start take a day to create a plan and
 - I really did enjoy the process. It was fun to think through the different approaches and issues.
 
 ## Things that I will add in the near future.
-- When a user searches an actor or actress, display their biography first.
-- Handle user entry errors.
-- Create a similar items feature. 
-- Finish the test in React
-- Fix the search bar and results
+- [x] When a user searches an actor or actress, display their biography first.
+- [ ] Handle user entry errors.
+- [x] Create a similar items feature. 
+- [x] Finish the test in React
+- [ ] Fix the search bar and results
