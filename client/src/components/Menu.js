@@ -4,7 +4,7 @@ import Search from './Search';
 import { Menu } from 'semantic-ui-react';
 
 export default class MenuBar extends Component {
-  state = { activeItem: 'home' }
+  state = { activeItem: 'Landing' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 

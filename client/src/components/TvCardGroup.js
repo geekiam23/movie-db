@@ -28,7 +28,6 @@ class TvCardGroup extends React.Component{
     this.fetch('api/tv/')
       .then(tv => {
         this.setState({tv})
-        console.log(tv);
       }).catch(err => {
         console.log(err);
       })
