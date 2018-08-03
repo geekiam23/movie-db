@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, Header, Image, Grid, Segment, Container } from 'semantic-ui-react'
 import Rating from './Rating';
 import MovieCard from './MovieCard';
@@ -7,8 +8,7 @@ class MovieDetail extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      activeMovie: null,
-      search: ''
+      activeMovie: null
     }
   }
 
@@ -29,26 +29,26 @@ class MovieDetail extends React.Component{
     this.fetch(`/api${this.props.location.pathname}`)
     .then(activeMovie => {
       this.setState({activeMovie})
-      console.log(activeMovie);
-      
     })
   }
 
   render (){
     const movieCasts = this.state.activeMovie ? (
       this.state.activeMovie.cast.map((cast) => 
-          <Card key={cast.id}>
-            <Image src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} alt="image" />
-            <Card.Content>
-              <Card.Header>{cast.name} as {cast.character}</Card.Header>
-            </Card.Content>
+          <Card key={cast.id + cast.name}>
+            <Link to={`/people/${cast.id}`} >
+              <Image src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} alt="image" />
+              <Card.Content>
+                <Card.Header>{cast.name} as {cast.character}</Card.Header>
+              </Card.Content>
+              </Link>
           </Card>
       )
     ) : "";
 
     const movieReviews = this.state.activeMovie ? (
       this.state.activeMovie.reviews.map((review) => 
-        <div key={review.id} className="ui comments centered">
+        <div key={review.id + review.author} className="ui comments centered">
           <div className="comment">
             <div className="content">
               <a className="author">{review.author}</a>

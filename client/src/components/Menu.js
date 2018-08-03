@@ -13,14 +13,17 @@ export default class MenuBar extends Component {
 
     return (
       <Menu secondary>
-        <Menu.Item active={activeItem === 'home'} onClick={this.handleItemClick}>
+        <Menu.Item active={activeItem === 'landing'} onClick={this.handleItemClick}>
           <Link to='/'>Landing</Link>
         </Menu.Item>
-        <Menu.Item active={activeItem === 'home'} onClick={this.handleItemClick}>
+        <Menu.Item active={activeItem === 'movies'} onClick={this.handleItemClick}>
           <Link to='/movies'>Popular Movies</Link>
         </Menu.Item>
-        <Menu.Item active={activeItem === 'home'} onClick={this.handleItemClick}>
+        <Menu.Item active={activeItem === 'tv'} onClick={this.handleItemClick}>
           <Link to='/tv'>Popular TV</Link>
+        </Menu.Item>
+        <Menu.Item active={activeItem === 'people'} onClick={this.handleItemClick}>
+          <Link to='/people'>Popular People</Link>
         </Menu.Item>
         <Menu.Menu position='right'>
           <Menu.Item>

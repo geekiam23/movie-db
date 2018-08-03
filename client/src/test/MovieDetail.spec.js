@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import MovieDetail from '../components/MovieDetail';
 import movieExample from './movieExample';
 
-describe('movieDetail', function() {
+describe('MovieDetail', function() {
   let movieDetail;
   let promise;
   let sandbox;

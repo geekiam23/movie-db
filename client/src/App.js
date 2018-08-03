@@ -7,6 +7,8 @@ import MovieCardGroup from './components/MovieCardGroup';
 import MovieDetail from './components/MovieDetail';
 import TvCardGroup from './components/TvCardGroup';
 import TvDetail from './components/TvDetail';
+import PeopleCardGroup from './components/PeopleCardGroup';
+import PeopleDetail from './components/PeopleDetail';
 import './App.css';
 
 const App = () => (
@@ -18,6 +20,8 @@ const App = () => (
       <Route exact path="/movies/" component={MovieCardGroup} />
       <Route path="/tv/:id" component={TvDetail} />
       <Route exact path="/tv/" component={TvCardGroup} />
+      <Route exact path="/people/" component={PeopleCardGroup} />
+      <Route path="/people/:id" component={PeopleDetail} />
       <Footer/>
     </main>
   </div>

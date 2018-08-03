@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, Header, Image, Grid, Segment, Container } from 'semantic-ui-react'
 import Rating from './Rating';
 import TvCard from './TvCard';
@@ -36,10 +37,12 @@ class TvDetail extends React.Component{
     const tvCasts = this.state.activeTv ? (
       this.state.activeTv.cast.map((cast) => 
           <Card key={cast.id}>
-            <Image src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} alt="image" />
-            <Card.Content>
-              <Card.Header>{cast.name} as {cast.character}</Card.Header>
-            </Card.Content>
+            <Link to={`/people/${cast.id}`} >
+              <Image src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} alt="image" />
+              <Card.Content>
+                <Card.Header>{cast.name} as {cast.character}</Card.Header>
+              </Card.Content>
+            </Link>
           </Card>
         ) 
     ) : "";

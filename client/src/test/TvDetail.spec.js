@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import TvDetail from '../components/TvDetail';
-import movieExample from './movieExample';
+import tvExample from './movieExample';
 
 describe('TvDetail', function() {
   let tvDetail;
@@ -32,7 +32,7 @@ describe('TvDetail', function() {
   describe('componentDidMount', function() {
     it('should call fetch', function() {
       tvDetail.instance().componentDidMount();
-      getTvDetailStub = sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(movieExample);
+      getTvDetailStub = sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(tvExample);
       
       expect(fetchStub.calledOnce).eq(true);
     });
@@ -40,16 +40,16 @@ describe('TvDetail', function() {
 
   describe('getTvDetail', function() {
     it('should call fetch and return data', function() {
-      sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(movieExample);
+      sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(tvExample);
       promise = tvDetail.instance().getTvDetail();
 
       return promise.then((resp) => {          
-        expect(resp).to.eq(movieExample);
+        expect(resp).to.eq(tvExample);
       });
     });
 
     it('should return the correct data structure', function() {
-      sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(movieExample);
+      sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(tvExample);
       promise = tvDetail.instance().getTvDetail();
 
       return promise.then((resp) => {
