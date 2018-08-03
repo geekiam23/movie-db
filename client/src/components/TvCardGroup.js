@@ -6,8 +6,7 @@ class TvCardGroup extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      tv: [],
-      search: ''
+      tv: []
     }
   }
 
@@ -36,7 +35,7 @@ class TvCardGroup extends React.Component{
   render (){
     let tv = this.state.tv.map((tv) => {
       return <TvCard
-        key={tv.id}
+        key={tv.name + tv.id}
         id={tv.id}
         name={tv.name}
         popularity={tv.popularity}

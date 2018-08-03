@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Header, Image, Grid, Segment, Container } from 'semantic-ui-react'
 import Rating from './Rating';
+import TvCard from './TvCard';
 
 class TvDetail extends React.Component{
   constructor(props){
@@ -44,7 +45,7 @@ class TvDetail extends React.Component{
     ) : "";
 
     const tvReviews = this.state.activeTv ? (
-      this.state.activeTv.results.map((review) => 
+      this.state.activeTv.reviews.map((review) => 
       <div key={review.id} className="ui comments">
         <div className="comment">
           <div className="content">
@@ -127,6 +128,23 @@ class TvDetail extends React.Component{
       </Grid>
     </Segment> : "";
 
+    const similarTv = this.state.activeTv ?
+    this.state.activeTv.similar.map((tv) => {
+      return <TvCard
+        key={tv.name+ tv.id}
+        id={tv.id}
+        title={tv.title}
+        popularity={tv.popularity}
+        release_date={tv.release_date}
+        vote_average={tv.vote_average}
+        overview={tv.overview}
+        vote_count={tv.vote_count}
+        adult={tv.adult}
+        photo={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + tv.poster_path}
+        created_at={tv.created_at}
+      />
+    }) : "";
+
     return (
       <div>
         {tvContainer}
@@ -148,6 +166,16 @@ class TvDetail extends React.Component{
           <Card.Group centered>
             {tvReviews}
           </Card.Group>
+        </Container>
+        <div className="ui hidden divider"></div>
+        <div className="ui divider"></div>
+        <Header textAlign='center' as='h3' style={{ fontSize: '2em' }}>
+          Similar:
+        </Header>
+        <Container>
+          <Card.Group centered itemsPerRow='four'>
+            {similarTv}
+          </Card.Group >
         </Container>
       </div>
     );

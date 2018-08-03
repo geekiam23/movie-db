@@ -9,24 +9,33 @@ class TvController < ApplicationController
   end 
 
   def show
-    url = Addressable::URI.parse("https://api.themoviedb.org/3/tv/#{params[:id]}?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
-    response = HTTParty.get(url)
+    @tv_show = details(params[:id])
 
-    @tv_show = {:details => (JSON.parse(response.body, symbolize_names: true))}
+    @cast = getTvInfo(params[:id], "/credits")
+    @sub_tv_shows = @movie.merge(@cast)
 
-    url = Addressable::URI.parse("https://api.themoviedb.org/3/tv/#{params[:id]}/credits?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
-    response = HTTParty.get(url)
+    @reviews = getTvInfo(params[:id], "/reviews")
+    @reviews["reviews"] = @reviews.delete("results")
+    @sub_tv_shows2 = @sub_tv_shows.merge(@reviews)
 
-    @cast = JSON.parse(response.body, symbolize_names: true) 
+    @similar = getTvInfo(params[:id], "/similar")
+    @similar["similar"] = @similar.delete("results")
 
-    url = Addressable::URI.parse("https://api.themoviedb.org/3/tv/#{params[:id]}/reviews?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
-    response = HTTParty.get(url)
-
-    @reviews = JSON.parse(response.body, symbolize_names: true) 
-
-    @sub_tv_shows = @tv_show.merge(@cast)
-
-    @all = @sub_tv_shows.merge(@reviews)
+    @all = @sub_tv_shows2.merge!(@similar)
     render json: @all.to_json
+  end
+
+  private
+  def details(id)
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/tv/#{id}?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    response = HTTParty.get(url)
+
+    @movie = {:details => (JSON.parse(response.body, symbolize_names: true))}
+  end
+
+
+  def getTvInfo(id, type)
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/tv/#{params[:id]}#{type}?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    response = HTTParty.get(url)
   end
 end

@@ -9,38 +9,39 @@ class MoviesController < ApplicationController
   end 
 
   def show
-    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
-    response = HTTParty.get(url)
+    @movie = details(params[:id])
 
-    @movie = {:details => (JSON.parse(response.body, symbolize_names: true))}
-
-    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}/credits?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
-    response = HTTParty.get(url)
-
-    @cast = JSON.parse(response.body, symbolize_names: true) 
-    
+    @cast = getMovieInfo(params[:id], "/credits")
     @sub_movies = @movie.merge(@cast)
 
-    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}/reviews?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
-    response = HTTParty.get(url)
-
-    @reviews = JSON.parse(response.body, symbolize_names: true) 
-    
+    @reviews = getMovieInfo(params[:id], "/reviews")
+    @reviews["reviews"] = @reviews.delete("results")
     @sub_movies2 = @sub_movies.merge(@reviews)
 
-    # url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}/similar?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
-    # response = HTTParty.get(url)
+    @similar = getMovieInfo(params[:id], "/similar")
+    @similar["similar"] = @similar.delete("results")
 
-    # @similar = JSON.parse(response.body, symbolize_names: true) 
-
-    # @all = @sub_movies2.merge(@similar)
-
-    render json: @sub_movies2.to_json
+    @all = @sub_movies2.merge!(@similar)
+    render json: @all.to_json
   end
 
 
   def search
     @movies = movie_service.find(params[:q])
     render json: @movies
+  end
+
+  private
+  def details(id)
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{id}?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    response = HTTParty.get(url)
+
+    @movie = {:details => (JSON.parse(response.body, symbolize_names: true))}
+  end
+
+
+  def getMovieInfo(id, type)
+    url = Addressable::URI.parse("https://api.themoviedb.org/3/movie/#{params[:id]}#{type}?api_key=#{ENV['TMDB_API_KEY']}&language=en-US")
+    response = HTTParty.get(url)
   end
 end

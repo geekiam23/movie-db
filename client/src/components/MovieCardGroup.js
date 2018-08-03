@@ -6,8 +6,7 @@ class MovieCardGroup extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      movies: [],
-      search: ''
+      movies: []
     }
   }
 
@@ -36,7 +35,7 @@ class MovieCardGroup extends React.Component{
   render (){
     let movies = this.state.movies.map((movie) => {
         return <MovieCard
-          key={movie.id}
+          key={movie.title}
           id={movie.id}
           title={movie.title}
           popularity={movie.popularity}
