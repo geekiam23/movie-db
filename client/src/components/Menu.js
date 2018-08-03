@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Search from './Search';
 import { Menu } from 'semantic-ui-react';
 
-export default class MenuExampleSecondary extends Component {
+export default class MenuBar extends Component {
   state = { activeItem: 'home' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -22,7 +22,7 @@ export default class MenuExampleSecondary extends Component {
         <Menu.Item active={activeItem === 'home'} onClick={this.handleItemClick}>
           <Link to='/tv'>Popular TV</Link>
         </Menu.Item>
-        <Menu.Menu position='right search-bar'>
+        <Menu.Menu position='right'>
           <Menu.Item>
             <Search/>
           </Menu.Item>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Header, Image, Grid, Segment } from 'semantic-ui-react'
+import { Card, Header, Image, Grid, Segment, Container } from 'semantic-ui-react'
 import Rating from './Rating';
 
 class MovieDetail extends React.Component{
@@ -28,14 +28,13 @@ class MovieDetail extends React.Component{
     this.fetch(`/api${this.props.location.pathname}`)
     .then(activeMovie => {
       this.setState({activeMovie})
-      console.log(this.state.activeMovie);
     })
   }
 
   render (){
     const movieCasts = this.state.activeMovie ? (
-      this.state.activeMovie.cast.map((cast, index) => 
-          <Card>
+      this.state.activeMovie.cast.map((cast) => 
+          <Card key={cast.id}>
             <Image src={"https://image.tmdb.org/t/p/w370_and_h556_bestv2/" + cast.profile_path} alt="image" />
             <Card.Content>
               <Card.Header>{cast.name} as {cast.character}</Card.Header>
@@ -45,14 +44,18 @@ class MovieDetail extends React.Component{
     ) : "";
 
     const movieReviews = this.state.activeMovie ? (
-      this.state.activeMovie.results.map((review, index) => 
-          <Card>
-            <Card.Content>
-              <Card.Header>{review.author}</Card.Header>
-              <Card.Header>{review.content}</Card.Header>
-            </Card.Content>
-          </Card>
-        ) 
+      this.state.activeMovie.results.map((review) => 
+        <div key={review.id} className="ui comments centered">
+          <div className="comment">
+            <div className="content">
+              <a className="author">{review.author}</a>
+              <div className="text">
+                <p>{review.content}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) 
     ) : "";
 
     const movieContainer = this.state.activeMovie ?
@@ -63,34 +66,39 @@ class MovieDetail extends React.Component{
             <Header as='h3' style={{ fontSize: '2em' }}>
               {this.state.activeMovie.details.title}
             </Header>
-            <p style={{ fontSize: '1.33em' }}>
+            <div style={{ fontSize: '1.33em' }}>
               {this.state.activeMovie.details.overview}
-            </p>
+            </div>
+            <div className="ui hidden divider"></div>
             <Grid.Row>
               <Grid.Column>
-                <p style={{ fontSize: '1.33em' }}>
+                <div style={{ fontSize: '1.33em' }}>
                   <b>Genres: </b>{this.state.activeMovie.details.genres[0].name}
-                </p>
+                </div>
               </Grid.Column>
+              <div className="ui hidden divider"></div>
               <Grid.Column>
-                <p style={{ fontSize: '1.33em' }}>
+                <div style={{ fontSize: '1.33em' }}>
                   <b>Status: </b>{this.state.activeMovie.details.status}
-                </p>
+                </div>
               </Grid.Column>
+              <div className="ui hidden divider"></div>
               <Grid.Column>
-                <p style={{ fontSize: '1.33em' }}>
+                <div style={{ fontSize: '1.33em' }}>
                   <b>Release Date: </b>{this.state.activeMovie.details.release_date}
-                </p>
+                </div>
               </Grid.Column>
+              <div className="ui hidden divider"></div>
               <Grid.Column>
-                <p style={{ fontSize: '1.33em' }}>
+                <div style={{ fontSize: '1.33em' }}>
                   <b>Runtime: </b>{this.state.activeMovie.details.runtime}
-                </p>
+                </div>
               </Grid.Column>
+              <div className="ui hidden divider"></div>
               <Grid.Column>
-                <p style={{ fontSize: '1.33em' }}>
-                  <b>User Score: </b><Rating max={10} votes={this.state.activeMovie.details.vote_average} />
-                </p>
+                <div style={{ fontSize: '1.33em' }}>
+                  <Rating max={10} votes={this.state.activeMovie.details.vote_average} />
+                </div>
               </Grid.Column>
             </Grid.Row>
           </Grid.Column>
@@ -107,16 +115,22 @@ class MovieDetail extends React.Component{
         <Header textAlign='center' as='h3' style={{ fontSize: '2em' }}>
           Casts:
         </Header>
-        <Card.Group centered>
-          {movieCasts}
-        </Card.Group>
-        <hr/>
+        <Container>
+          <Card.Group centered itemsPerRow='six'>
+            {movieCasts}
+          </Card.Group>
+        </Container>
+        <div className="ui hidden divider"></div>
+        <div className="ui divider"></div>
         <Header textAlign='center' as='h3' style={{ fontSize: '2em' }}>
           Reviews:
         </Header>
-        <Card.Group centered>
+        <div className="ui hidden divider"></div>
+        <Container>
+          <Card.Group centered>
           {movieReviews}
-        </Card.Group>
+          </Card.Group>
+        </Container>
       </div>
     );
   };

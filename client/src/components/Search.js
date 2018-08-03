@@ -29,12 +29,11 @@ class Search extends React.Component {
   
     getMovies = () => {
       this.fetch('/search?q=' + this.state.term)
-      .then(autoCompleteResults => {
-        this.setState({ autoCompleteResults: autoCompleteResults})
-        console.log(autoCompleteResults);
-      }).catch(err => {
-        console.log(err);
-      })
+        .then(autoCompleteResults => {
+          this.setState({ autoCompleteResults: autoCompleteResults})
+        }).catch(err => {
+          console.log(err);
+        })
     }
 
     getAutoCompleteResults = (e) => {
@@ -48,8 +47,7 @@ class Search extends React.Component {
 
   render(){
     let autoCompleteList = this.state.autoCompleteResults ? 
-      this.state.autoCompleteResults.map((response, index) => {
-        console.log(response);
+      this.state.autoCompleteResults.map((response) => {
         if (!response.name){
           return <Card>
                   <Link to={`/movies/${response.id}`} >
