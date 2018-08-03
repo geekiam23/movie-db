@@ -12,7 +12,7 @@ class MovieCardGroup extends React.Component{
   }
 
   componentDidMount = () => {
-    this.getMovies()
+    return this.getMovies();
   }
 
   fetch = (endpoint) => {
@@ -25,10 +25,9 @@ class MovieCardGroup extends React.Component{
   }
 
   getMovies = () => {
-    this.fetch('api/movies/')
+    return this.fetch('api/movies/')
     .then(movies => {
       this.setState({movies})
-      console.log(movies);
     }).catch(err => {
       console.log(err);
     })

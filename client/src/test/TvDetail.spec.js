@@ -2,14 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import MovieCardGroup from '../components/MovieCardGroup';
+import TvDetail from '../components/TvDetail';
 import movieExample from './movieExample';
 
-describe('MovieCardGroup', function() {
-  let movieCardGroup;
+describe('TvDetail', function() {
+  let tvDetail;
   let promise;
   let sandbox;
-  let getMoviesStub;
+  let getTvDetailStub;
   let fetchStub;
 
   before(function() {
@@ -17,8 +17,8 @@ describe('MovieCardGroup', function() {
   });
 
   beforeEach(function() {
-    movieCardGroup = shallow(<MovieCardGroup />, {disableLifeCycleMethods: true});
-    fetchStub = sandbox.stub(movieCardGroup.instance(), 'fetch').resolves();
+    tvDetail = shallow(<TvDetail location="pathname"/>, {disableLifeCycleMethods: true});
+    fetchStub = sandbox.stub(tvDetail.instance(), 'fetch').resolves();
   });
 
   afterEach(function() {
@@ -26,22 +26,22 @@ describe('MovieCardGroup', function() {
   });
 
   it('should render', function() {
-    expect(movieCardGroup).to.not.be.empty;
+    expect(tvDetail).to.not.be.empty;
   });
 
   describe('componentDidMount', function() {
     it('should call fetch', function() {
-      movieCardGroup.instance().componentDidMount();
-      getMoviesStub = sandbox.stub(movieCardGroup.instance(), 'getMovies').resolves(movieExample);
+      tvDetail.instance().componentDidMount();
+      getTvDetailStub = sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(movieExample);
       
       expect(fetchStub.calledOnce).eq(true);
     });
   });
 
-  describe('getMovies', function() {
+  describe('getTvDetail', function() {
     it('should call fetch and return data', function() {
-      sandbox.stub(movieCardGroup.instance(), 'getMovies').resolves(movieExample);
-      promise = movieCardGroup.instance().getMovies();
+      sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(movieExample);
+      promise = tvDetail.instance().getTvDetail();
 
       return promise.then((resp) => {          
         expect(resp).to.eq(movieExample);
@@ -49,8 +49,8 @@ describe('MovieCardGroup', function() {
     });
 
     it('should return the correct data structure', function() {
-      sandbox.stub(movieCardGroup.instance(), 'getMovies').resolves(movieExample);
-      promise = movieCardGroup.instance().getMovies();
+      sandbox.stub(tvDetail.instance(), 'getTvDetail').resolves(movieExample);
+      promise = tvDetail.instance().getTvDetail();
 
       return promise.then((resp) => {
         expect(resp).to.be.an('array');       

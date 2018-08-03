@@ -1,8 +1,6 @@
 import React from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react'
 
-
-
 const Footer = () => (
   <Segment inverted vertical style={{ padding: '5em 0em', marginTop: '100px'  }}>
     <Container>
